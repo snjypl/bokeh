@@ -28,6 +28,8 @@ import bokeh.command.util as util # isort:skip
 # Setup
 #-----------------------------------------------------------------------------
 
+Capture = pytest.CaptureFixture[str]
+
 #-----------------------------------------------------------------------------
 # General API
 #-----------------------------------------------------------------------------
@@ -36,7 +38,7 @@ import bokeh.command.util as util # isort:skip
 # Dev API
 #-----------------------------------------------------------------------------
 
-def test_die(capsys) -> None:
+def test_die(capsys: Capture) -> None:
     with pytest.raises(SystemExit):
         util.die("foo")
     out, err = capsys.readouterr()

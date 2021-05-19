@@ -37,6 +37,8 @@ ALL = (
     'validation_on',
 )
 
+Capture = pytest.CaptureFixture[str]
+
 #-----------------------------------------------------------------------------
 # General API
 #-----------------------------------------------------------------------------
@@ -104,7 +106,7 @@ class TestProperty:
                 p.prepare_value(hp, "foo", 10)
                 assert str(e) == "bad True name, 10"
 
-    def test_matches_basic_types(self, capsys) -> None:
+    def test_matches_basic_types(self, capsys: Capture) -> None:
         p = bcpb.Property()
         for x in [1, 1.2, "a", np.arange(4), None, False, True, {}, []]:
                 assert p.matches(x, x) is True
@@ -112,7 +114,7 @@ class TestProperty:
         out, err = capsys.readouterr()
         assert err == ""
 
-    def test_matches_compatible_arrays(self, capsys) -> None:
+    def test_matches_compatible_arrays(self, capsys: Capture) -> None:
         p = bcpb.Property()
         a = np.arange(5)
         b = np.arange(5)
@@ -124,7 +126,7 @@ class TestProperty:
         out, err = capsys.readouterr()
         assert err == ""
 
-    def test_matches_incompatible_arrays(self, capsys) -> None:
+    def test_matches_incompatible_arrays(self, capsys: Capture) -> None:
         p = bcpb.Property()
         a = np.arange(5)
         b = np.arange(5).astype(str)
@@ -133,7 +135,7 @@ class TestProperty:
         # no way to suppress FutureWarning in this case
         # assert err == ""
 
-    def test_matches_dicts_with_array_values(self, capsys) -> None:
+    def test_matches_dicts_with_array_values(self, capsys: Capture) -> None:
         p = bcpb.Property()
         d1 = dict(foo=np.arange(10))
         d2 = dict(foo=np.arange(10))
@@ -150,7 +152,7 @@ class TestProperty:
         out, err = capsys.readouterr()
         assert err == ""
 
-    def test_matches_non_dict_containers_with_array_false(self, capsys) -> None:
+    def test_matches_non_dict_containers_with_array_false(self, capsys: Capture) -> None:
         p = bcpb.Property()
         d1 = [np.arange(10)]
         d2 = [np.arange(10)]
@@ -165,7 +167,7 @@ class TestProperty:
         out, err = capsys.readouterr()
         assert err == ""
 
-    def test_matches_dicts_with_series_values(self, capsys, pd) -> None:
+    def test_matches_dicts_with_series_values(self, capsys: Capture, pd) -> None:
         p = bcpb.Property()
         d1 = pd.DataFrame(dict(foo=np.arange(10)))
         d2 = pd.DataFrame(dict(foo=np.arange(10)))
@@ -182,7 +184,7 @@ class TestProperty:
         out, err = capsys.readouterr()
         assert err == ""
 
-    def test_matches_dicts_with_index_values(self, capsys, pd) -> None:
+    def test_matches_dicts_with_index_values(self, capsys: Capture, pd) -> None:
         p = bcpb.Property()
         d1 = pd.DataFrame(dict(foo=np.arange(10)))
         d2 = pd.DataFrame(dict(foo=np.arange(10)))

@@ -66,6 +66,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 """
 
+Capture = pytest.CaptureFixture[str]
+
 #-----------------------------------------------------------------------------
 # General API
 #-----------------------------------------------------------------------------
@@ -78,7 +80,7 @@ def test___version___type() -> None:
 def test___version___defined() -> None:
     assert b.__version__ != 'unknown'
 
-def test_license(capsys) -> None:
+def test_license(capsys: Capture) -> None:
     b.license()
     out, err = capsys.readouterr()
     assert out == _LICENSE

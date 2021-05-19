@@ -67,10 +67,6 @@ class Test_ScriptHandler:
         assert result['handler'].failed is False
         assert not doc.roots
 
-    def test_missing_filename_raises(self) -> None:
-        with pytest.raises(ValueError):
-            bahs.ScriptHandler()
-
 #-----------------------------------------------------------------------------
 # Private API
 #-----------------------------------------------------------------------------

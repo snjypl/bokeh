@@ -46,7 +46,7 @@ class Test_FunctionHandler:
     # Public methods ----------------------------------------------------------
 
     def test_empty_func(self) -> None:
-        def noop(doc):
+        def noop(doc: Document):
             pass
         handler = bahf.FunctionHandler(noop)
         doc = Document()
@@ -56,7 +56,7 @@ class Test_FunctionHandler:
         assert not doc.roots
 
     def test_func_adds_roots(self) -> None:
-        def add_roots(doc):
+        def add_roots(doc: Document):
             doc.add_root(AnotherModelInTestFunction())
             doc.add_root(SomeModelInTestFunction())
         handler = bahf.FunctionHandler(add_roots)
@@ -67,7 +67,7 @@ class Test_FunctionHandler:
         assert len(doc.roots) == 2
 
     def test_safe_to_fork(self) -> None:
-        def noop(doc):
+        def noop(doc: Document):
             pass
         handler = bahf.FunctionHandler(noop)
         doc = Document()

@@ -88,7 +88,7 @@ class Test_autoload_static:
 
     @pytest.mark.parametrize("version", ["1.4.0rc1", "2.0.0dev3"])
     @pytest.mark.selenium
-    def test_js_dev_cdn(self, version, monkeypatch, driver, test_file_path_and_url, test_plot) -> None:
+    def test_js_dev_cdn(self, version, monkeypatch: pytest.MonkeyPatch, driver, test_file_path_and_url, test_plot) -> None:
         monkeypatch.setattr(buv, "__version__", "1.4.0rc1")
         monkeypatch.setattr(resources, "__version__", "1.4.0rc1")
         js, tag = bes.autoload_static(test_plot, CDN, "some/path")
@@ -108,7 +108,7 @@ class Test_autoload_static:
             assert script.get_attribute("integrity") == ""
 
     @pytest.mark.selenium
-    def test_js_release_cdn(self, monkeypatch, driver, test_file_path_and_url, test_plot) -> None:
+    def test_js_release_cdn(self, monkeypatch: pytest.MonkeyPatch, driver, test_file_path_and_url, test_plot) -> None:
         monkeypatch.setattr(buv, "__version__", "2.0.0")
         monkeypatch.setattr(resources, "__version__", "2.0.0")
         js, tag = bes.autoload_static(test_plot, CDN, "some/path")
@@ -130,7 +130,7 @@ class Test_autoload_static:
             assert script.get_attribute("integrity") == ""
 
     @pytest.mark.selenium
-    def test_js_release_dev_cdn(self, monkeypatch, driver, test_file_path_and_url, test_plot) -> None:
+    def test_js_release_dev_cdn(self, monkeypatch: pytest.MonkeyPatch, driver, test_file_path_and_url, test_plot) -> None:
         monkeypatch.setattr(buv, "__version__", "2.0.0-foo")
         monkeypatch.setattr(resources, "__version__", "2.0.0-foo")
         js, tag = bes.autoload_static(test_plot, CDN, "some/path")
@@ -152,7 +152,7 @@ class Test_autoload_static:
             assert script.get_attribute("integrity") == ""
 
     @pytest.mark.selenium
-    def test_js_release_server(self, monkeypatch, driver, test_file_path_and_url, test_plot) -> None:
+    def test_js_release_server(self, monkeypatch: pytest.MonkeyPatch, driver, test_file_path_and_url, test_plot) -> None:
         monkeypatch.setattr(buv, "__version__", "2.0.0")
         monkeypatch.setattr(resources, "__version__", "2.0.0")
         js, tag = bes.autoload_static(test_plot, resources.Resources(mode="server"), "some/path")

@@ -62,6 +62,7 @@ ALL  = (
     'OutputBackend',
     'PaddingUnits',
     'Palette',
+    'Place',
     'RenderLevel',
     'RenderMode',
     'ResetPolicy',
@@ -307,7 +308,7 @@ class Test_bce:
 
 # any changes to contents of bce.py easily trackable here
 def test_enums_contents() -> None:
-    assert [x for x in dir(bce) if x[0].isupper()] == [
+    assert [ name for name in dir(bce) if isinstance(getattr(bce, name), bce.Enumeration) ] == [
         'Align',
         'Anchor',
         'AngleUnits',
@@ -320,7 +321,6 @@ def test_enums_contents() -> None:
         'Dimension',
         'Dimensions',
         'Direction',
-        'Enumeration',
         'FontStyle',
         'HatchPattern',
         'HatchPatternAbbreviation',
@@ -342,6 +342,7 @@ def test_enums_contents() -> None:
         'OutputBackend',
         'PaddingUnits',
         'Palette',
+        'Place',
         'RenderLevel',
         'RenderMode',
         'ResetPolicy',

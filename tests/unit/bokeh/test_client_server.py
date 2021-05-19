@@ -885,7 +885,7 @@ class TestClientServer:
             assert result['server_connection_count'] == 1
             assert result['server_close_code'] is None
 
-def test_client_changes_do_not_boomerang(monkeypatch, ManagedServerLoop) -> None:
+def test_client_changes_do_not_boomerang(monkeypatch: pytest.MonkeyPatch, ManagedServerLoop) -> None:
     application = Application()
     with ManagedServerLoop(application) as server:
         doc = document.Document()
@@ -931,7 +931,7 @@ def test_client_changes_do_not_boomerang(monkeypatch, ManagedServerLoop) -> None
         assert not client_session.connected
         server.unlisten() # clean up so next test can run
 
-def test_server_changes_do_not_boomerang(monkeypatch, ManagedServerLoop) -> None:
+def test_server_changes_do_not_boomerang(monkeypatch: pytest.MonkeyPatch, ManagedServerLoop) -> None:
     application = Application()
     with ManagedServerLoop(application) as server:
         doc = document.Document()
@@ -981,7 +981,7 @@ def test_server_changes_do_not_boomerang(monkeypatch, ManagedServerLoop) -> None
 
 # this test is because we do the funky serializable_value
 # tricks with the units specs
-def test_unit_spec_changes_do_not_boomerang(monkeypatch, ManagedServerLoop) -> None:
+def test_unit_spec_changes_do_not_boomerang(monkeypatch: pytest.MonkeyPatch, ManagedServerLoop) -> None:
     application = Application()
     with ManagedServerLoop(application) as server:
         doc = document.Document()
