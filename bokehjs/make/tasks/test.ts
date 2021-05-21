@@ -212,12 +212,10 @@ function opt(name: string, value: unknown): string {
 }
 
 function devtools(devtools_port: number, server_port: number, name: string, baselines_root?: string): Promise<void> {
-  const legacy = argv.legacy === true ? "?legacy" : ""
-
   const args = [
     "--no-warnings",
     "./test/devtools",
-    `http://localhost:${server_port}/${name}${legacy}`,
+    `http://localhost:${server_port}/${name}`,
     `--port=${devtools_port}`,
     opt("k", argv.k),
     opt("grep", argv.grep),

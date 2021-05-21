@@ -225,7 +225,6 @@ class BaseResources:
         version=None,
         root_dir=None,
         minified=None,
-        legacy=None,
         log_level=None,
         root_url=None,
         path_versioner=None,
@@ -258,8 +257,6 @@ class BaseResources:
         del version
         self.minified = settings.minified(minified)
         del minified
-        self.legacy = settings.legacy(legacy)
-        del legacy
         self.log_level = settings.log_level(log_level)
         del log_level
         self.path_versioner = path_versioner
@@ -329,9 +326,8 @@ class BaseResources:
 
     def _file_paths(self, kind):
         minified = ".min" if not self.dev and self.minified else ""
-        legacy = ".legacy" if self.legacy else ""
 
-        files = [f"{component}{legacy}{minified}.{kind}" for component in self.components(kind)]
+        files = [f"{component}{minified}.{kind}" for component in self.components(kind)]
         paths = [join(self.base_dir, kind, file) for file in files]
         return paths
 
@@ -354,10 +350,10 @@ class BaseResources:
         return external_resources
 
     def _cdn_urls(self):
-        return _get_cdn_urls(self.version, self.minified, self.legacy)
+        return _get_cdn_urls(self.version, self.minified)
 
     def _server_urls(self):
-        return _get_server_urls(self.root_url, False if self.dev else self.minified, self.legacy, self.path_versioner)
+        return _get_server_urls(self.root_url, False if self.dev else self.minified, self.path_versioner)
 
     def _resolve(self, kind):
         paths = self._file_paths(kind)
@@ -653,7 +649,7 @@ def _cdn_base_url():
     return "https://cdn.bokeh.org"
 
 
-def _get_cdn_urls(version=None, minified=True, legacy=False):
+def _get_cdn_urls(version=None, minified=True):
     if version is None:
         if settings.docs_cdn():
             version = settings.docs_cdn()
@@ -662,7 +658,6 @@ def _get_cdn_urls(version=None, minified=True, legacy=False):
 
     # check if we want minified js and css
     _minified = ".min" if minified else ""
-    _legacy = ".legacy" if legacy else ""
 
     base_url = _cdn_base_url()
     dev_container = "bokeh/dev"
@@ -672,7 +667,7 @@ def _get_cdn_urls(version=None, minified=True, legacy=False):
     container = dev_container if _DEV_PAT.match(version) else rel_container
 
     def mk_filename(comp, kind):
-        return f"{comp}-{version}{_legacy}{_minified}.{kind}"
+        return f"{comp}-{version}{_minified}.{kind}"
 
     def mk_url(comp, kind):
         return f"{base_url}/{container}/" + mk_filename(comp, kind)
@@ -701,12 +696,11 @@ def _get_cdn_urls(version=None, minified=True, legacy=False):
     return result
 
 
-def _get_server_urls(root_url, minified=True, legacy=False, path_versioner=None):
+def _get_server_urls(root_url, minified=True, path_versioner=None):
     _minified = ".min" if minified else ""
-    _legacy = ".legacy" if legacy else ""
 
     def mk_url(comp, kind):
-        path = f"{kind}/{comp}{_legacy}{_minified}.{kind}"
+        path = f"{kind}/{comp}{_minified}.{kind}"
         if path_versioner is not None:
             path = path_versioner(path)
         return f"{root_url}static/{path}"
@@ -738,12 +732,9 @@ CDN = Resources(mode="cdn")
 
 INLINE = Resources(mode="inline")
 
-INLINE_LEGACY = Resources(mode="inline", legacy=True)
-
 __all__ = (
     "CDN",
     "INLINE",
-    "INLINE_LEGACY",
     "Resources",
     "JSResources",
     "CSSResources",

@@ -50,7 +50,6 @@ _expected_settings = (
     'docs_cdn',
     'docs_version',
     'ignore_filename',
-    'legacy',
     'log_level',
     'minified',
     'nodejs_path',
@@ -100,7 +99,6 @@ class TestSettings:
 
         default_typed = set(_expected_settings) - {
             'ignore_filename',
-            'legacy',
             'minified',
             'perform_document_validation',
             'simple_ids',
