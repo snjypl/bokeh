@@ -10,8 +10,7 @@
 
 # Standard library imports
 import os
-from subprocess import PIPE, STDOUT
-from subprocess import run as stdlib_run
+from subprocess import PIPE, STDOUT, run as stdlib_run
 from typing import Any, List
 
 # Bokeh imports
