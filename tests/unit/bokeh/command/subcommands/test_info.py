@@ -18,6 +18,7 @@ import pytest ; pytest
 from os.path import join
 
 # Bokeh imports
+from bokeh._testing.util.types import Capture
 from bokeh.command.bootstrap import main
 from bokeh.command.subcommand import Argument
 
@@ -27,8 +28,6 @@ import bokeh.command.subcommands.info as scinfo # isort:skip
 #-----------------------------------------------------------------------------
 # Setup
 #-----------------------------------------------------------------------------
-
-Capture = pytest.CaptureFixture[str]
 
 #-----------------------------------------------------------------------------
 # General API

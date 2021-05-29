@@ -20,6 +20,7 @@ from mock import patch
 
 # Bokeh imports
 from bokeh._testing.util.api import verify_all
+from bokeh._testing.util.types import Capture
 from bokeh.core.has_props import HasProps
 
 # Module under test
@@ -36,8 +37,6 @@ ALL = (
     'Property',
     'validation_on',
 )
-
-Capture = pytest.CaptureFixture[str]
 
 #-----------------------------------------------------------------------------
 # General API

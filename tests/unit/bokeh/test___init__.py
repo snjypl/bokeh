@@ -19,6 +19,7 @@ import warnings
 
 # Bokeh imports
 from bokeh._testing.util.api import verify_all
+from bokeh._testing.util.types import Capture
 from bokeh.util.warnings import BokehDeprecationWarning, BokehUserWarning
 
 # Module under test
@@ -65,8 +66,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 THE POSSIBILITY OF SUCH DAMAGE.
 
 """
-
-Capture = pytest.CaptureFixture[str]
 
 #-----------------------------------------------------------------------------
 # General API
