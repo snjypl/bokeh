@@ -10,7 +10,7 @@
 
 # Standard library imports
 import re
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 
 # Bokeh imports
 from .enums import VersionType
@@ -35,7 +35,7 @@ class Config:
 
         self.base_version: str = groups[0]
         self.base_version_tuple: Tuple[str, ...] = tuple(groups[1:4])
-        self.ext: Optional[str] = groups[4]
+        self.ext: str | None = groups[4]
         self.ext_type: str = groups[5]
         self.ext_number: str = groups[6]
 
